@@ -1,0 +1,141 @@
+﻿<!doctype html>
+<html ng-app="Store">
+<head>
+    <title></title>
+
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>-->
+
+    <script src="angular-1.4.7/JS/angular.min.js"></script>
+
+  
+    <script src="MyStore/App.js"></script>
+    <script src="MyStore/Products.js"></script>
+  
+      <link href="angular-1.4.7/Style/bootstrap.min.css" rel="stylesheet" />
+    <link href="angular-1.4.7/Style/Store.css" rel="stylesheet" />
+
+</head>
+<body >
+    <div  ng-controller="StoreController as store">
+        <div ng-repeat="product in store.products">
+            <div ng-hide="product.soldOut">
+
+                <!-- This was original way to display product name and price but if we need to show this at multiple pages then we can do it 
+                    better way to avoid redundent code.  Thats why we are using below code to include the separate page of product having title and price info
+                    
+                <h2>{{product.name}}</h2>
+                <h2>{{product.price | currency}}</h2>
+                -->
+                
+                <!--
+                <h3 ng-include="'product-title.html'"></h3>
+                -->
+
+
+                <!--Same thing as done 2 different ways above but through custom directive-->
+                <product-title></product-title>
+
+
+                <img ng-src="{{product.images[0].thumb}}" />
+                <button ng-show="product.canPurchase">Add to Cart</button>
+
+                    <!--<section ng-init="tab=1">
+            <ul class="nav nav-pills">
+                <li ng-class="{active:tab===1}"><a href ng-click="tab=1">Description</a>    </li>
+                <li ng-class="{active:tab===2}"><a href ng-click="tab=2">Specifications</a>    </li>
+                <li ng-class="{active:tab===3}"><a href ng-click="tab=3">Reviews</a>    </li>
+
+                {{tab}}
+            </ul>
+
+            <div class="panel" ng-show="tab===1">
+                <h4>Description</h4>
+                <p>{{product.description}}</p>
+            </div>
+            <div class="panel" ng-show="tab===2">
+                <h4>Specifications</h4>
+                <blockquote>None yet</blockquote>
+            </div>
+
+            <div class="panel" ng-show="tab===3">
+                <h4>Reviews</h4>
+                <blockquote>None yet</blockquote>
+            </div>
+
+        </section>-->
+                    <!--moved above logic of section into a panel-->
+
+                <section ng-controller="productPanels as panel">
+                    <ul class="nav nav-pills">
+                        <li ng-class="{active:panel.isSelected(1)}">
+                            <a href ng-click="panel.selectTab(1)">Description</a>
+                        </li>
+                        <li ng-class="{active:panel.isSelected(2)}">
+                            <a href ng-click="panel.selectTab(2)">Specifications</a>
+                        </li>
+                        <li ng-class="{active:panel.isSelected(3)}">
+                            <a href ng-click="panel.selectTab(3)">Reviews</a>
+                        </li>
+
+
+                    </ul>
+
+                    <div class="panel" ng-show="panel.isSelected(1)">
+                        <h4>Description</h4>
+                        <p>{{product.description}}</p>
+                    </div>
+                    <div class="panel" ng-show="panel.isSelected(2)">
+                        <h4>Specifications</h4>
+                        <blockquote>None yet</blockquote>
+                    </div>
+
+                    <div class="panel" ng-show="panel.isSelected(3)">
+                        <h4>Reviews</h4>
+                        <blockquote ng-repeat="review in product.reviews">
+                            <b>{{review.stars}} Stars</b> <br />
+                            {{review.body}} <br />
+                            <cite>by: {{review.author}}</cite>
+                        </blockquote>
+
+
+
+                        <form name="reviewForm" ng-controller="productReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+                            <blockquote>
+                                <b>{{reviewCtrl.review.stars}} Stars</b> <br />
+                                {{reviewCtrl.review.body}} <br />
+                                <cite>by: {{reviewCtrl.review.author}}</cite>
+                            </blockquote>
+                            <h3>Submit a review</h3>
+                            <div class="form-group">
+                                <select class="form-control" ng-model="reviewCtrl.review.stars" required>
+                                    <option value="1">1 star</option>
+                                    <option value="2">2 star</option>
+                                    <option value="3">3 star</option>
+                                    <option value="4">4 star</option>
+                                    <option value="5">5 star</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" ng-model="reviewCtrl.review.body" required></textarea>
+                            </div>
+                            <div class="form-group">
+
+                                <input type="email" class="form-control" id="email" ng-model="reviewCtrl.review.author" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Submit" />
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                </section>
+</div>
+
+
+        </div>
+    </div>
+</body>
+</html>
