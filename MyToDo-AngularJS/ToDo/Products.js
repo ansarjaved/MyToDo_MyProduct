@@ -1,73 +1,87 @@
 ﻿(function () {
     var app = angular.module('store-products', []);
 
+    //app.service('GetLiveProducts', function ($http) {
+    //    var d=[];
+    //    $http.get('http://private-37e26-products43.apiary-mock.com/Products').success(function (data) {
+    //        d = data;
+    //    })
+    //    return d;
+       
+    //});
+
+    app.service('GetLiveProducts', function ($http) {
+        this.getProducts = function () {
+            return $http.get('http://private-37e26-products43.apiary-mock.com/Products');
+        };
+    });
 
     app.service('GetProducts', function () {
         this.products = function () {
-            //products array
-            var gems = [
-                {
-                    name: 'computer',
-                    price: 222,
-                    description: 'In the keynote session of AngularConnect in London, Brad Green gave attendees a status update on the Angular 2 project. There is still no ..',
-                    canPurchase: true,
-                    soldOut: false,
-                    //images array for the product
-                    images: [
-                          {
-                              thumb: 'Images/TNproduc1.jpg',
-                              full: 'Images/Product1.jpg'
+                            //products array
+                            var gems = [
+                                {
+                                    name: 'computer',
+                                    price: 222,
+                                    description: 'In the keynote session of AngularConnect in London, Brad Green gave attendees a status update on the Angular 2 project. There is still no ..',
+                                    canPurchase: true,
+                                    soldOut: false,
+                                    //images array for the product
+                                    images: [
+                                          {
+                                              thumb: 'Images/TNproduc1.jpg',
+                                              full: 'Images/Product1.jpg'
 
-                          }
-                    ],
+                                          }
+                                    ],
 
-                    //reviews array for the product
-                    reviews: [
-                        {
-                            stars: 5,
-                            body: "I love this product",
-                            author: "abc@hotmail.com"
+                                    //reviews array for the product
+                                    reviews: [
+                                        {
+                                            stars: 5,
+                                            body: "I love this product",
+                                            author: "abc@hotmail.com"
 
-                        },
-                        {
-                            stars: 1,
-                            body: "This product is okay",
-                            author: "abc@yahoo.com"
+                                        },
+                                        {
+                                            stars: 1,
+                                            body: "This product is okay",
+                                            author: "abc@yahoo.com"
 
-                        }
+                                        }
 
-                    ]
-                },
-                {
-                    name: 'Mobile',
-                    price: 100,
-                    description: 'mobile descritiip',
-                    canPurchase: true,
-                    soldOut: false,
-                    //images array for the product
-                    images: [
-                          {
-                              thumb: 'Images/TNproduc1.jpg',
-                              full: 'Images/Product1.jpg'
+                                    ]
+                                },
+                                {
+                                    name: 'Mobile',
+                                    price: 100,
+                                    description: 'mobile descritiip',
+                                    canPurchase: true,
+                                    soldOut: false,
+                                    //images array for the product
+                                    images: [
+                                          {
+                                              thumb: 'Images/TNproduc1.jpg',
+                                              full: 'Images/Product1.jpg'
 
-                          }
-                    ],
+                                          }
+                                    ],
 
-                    //reviews array for the product
-                    reviews: [
-                        {
-                            stars: 4,
-                            body: "This product is fantastic",
-                            author: "hhhh@hotmail.com"
+                                    //reviews array for the product
+                                    reviews: [
+                                        {
+                                            stars: 4,
+                                            body: "This product is fantastic",
+                                            author: "hhhh@hotmail.com"
 
-                        }
+                                        }
 
-                    ]
-                }
-            ];
-            /// end of products array
-            return gems;
-        };
+                                    ]
+                                }
+                            ];
+                            /// end of products array
+                        return gems;
+                       };
     });
    
 
